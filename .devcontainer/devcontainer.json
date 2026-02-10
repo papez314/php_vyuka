@@ -1,0 +1,16 @@
+{
+  "name": "PHP Výuka",
+  "image": "mcr.microsoft.com/devcontainers/php:8.3",
+  "forwardPorts": [8080],
+  "postCreateCommand": "echo '✅ Prostředí připraveno! Spusť: php -S 0.0.0.0:8080 -t public'",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "bmewburn.vscode-intelephense-client"
+      ],
+      "settings": {
+        "php.validate.executablePath": "/usr/local/bin/php"
+      }
+    }
+  }
+}
