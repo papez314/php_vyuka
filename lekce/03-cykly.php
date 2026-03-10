@@ -65,3 +65,11 @@ echo "\n";
 echo "\n--- Tvůj úkol ---\n";
 // TODO: Vypiš čísla od 10 do 1 (odpočítávání)
 // TODO: Vypiš malou násobilku čísla 7 (7x1=7, 7x2=14, ...)
+for ($i = 1; $i <= 10; $i++) {
+    echo "{$i}";
+}
+$y = 0;
+for ($i = 1; $i <= 10; $i++) {
+    $y = $i * 7;
+    echo "\n7*$i=$y\n";
+}
