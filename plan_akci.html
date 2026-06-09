@@ -30,57 +30,43 @@
         <main class="content">
             <article class="post">
                 <span class="category-tag">Kalendář akcí</span>
-                <section class="info-header">
-
-                    <table class="hunting-table">
-                        <thead>
-                            <tr>
-                                <th>Datum</th>
-                                <th>Hodina</th>
-                                <th>Název akce</th>
-                                <th>Místo</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>8. 1. 2026</td>
-                                <td>15:00 h</td>
-                                <td class="event-name">Výborová schůze MS</td>
-                                <td>Myslivecká chata</td>
-                            </tr>
-                            <tr>
-                                <td>7. 2. 2026</td>
-                                <td>18:00 h</td>
-                                <td class="event-name">Valná hromada HS B-P-J</td>
-                                <td>MŠ Branky</td>
-                            </tr>
-                            <tr>
-                                <td>8. 2. 2026</td>
-                                <td>10:00 h</td>
-                                <td class="event-name">Výroční členská schůze MS</td>
-                                <td>MŠ Branky</td>
-                            </tr>
-                            <tr>
-                                <td>14. 2. 2026</td>
-                                <td>20:00 h</td>
-                                <td class="event-name">Myslivecký ples</td>
-                                <td>Obecní dům</td>
-                            </tr>
-                            <tr>
-                                <td>19. 2. 2026</td>
-                                <td>15:00 h</td>
-                                <td class="event-name">Výborová schůze MS</td>
-                                <td>Myslivecká chata</td>
-                            </tr>
-                            <tr>
-                                <td>1. 4. 2026</td>
-                                <td>15:00 h</td>
-                                <td class="event-name">Den Země – sběr odpadků</td>
-                                <td>dle rozpisu úseků</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </section>
+<?php
+$dbPath = __DIR__ . '/spolek.db';
+$calendarEvents = [];
+if (file_exists($dbPath)) {
+    $pdo = new PDO('sqlite:' . $dbPath);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $news = $pdo->query("SELECT published_date AS event_date, title FROM news ORDER BY id DESC")->fetchAll(PDO::FETCH_ASSOC);
+    $events = $pdo->query("SELECT event_date, title FROM events ORDER BY id ASC")->fetchAll(PDO::FETCH_ASSOC);
+    $calendarEvents = array_merge($news, $events);
+}
+?>
+<section class="info-header">
+    <table class="hunting-table">
+        <thead>
+            <tr>
+                <th>Datum</th>
+                <th>Hodina</th>
+                <th>Název akce</th>
+                <th>Místo</th>
+            </tr>
+        </thead>
+        <tbody>
+<?php if (!empty($calendarEvents)): ?>
+    <?php foreach ($calendarEvents as $event): ?>
+        <tr>
+            <td><?= htmlspecialchars($event['event_date']) ?></td>
+            <td></td>
+            <td class="event-name"><?= htmlspecialchars($event['title']) ?></td>
+            <td></td>
+        </tr>
+    <?php endforeach; ?>
+<?php else: ?>
+        <tr><td colspan="4">Žádné plánované akce</td></tr>
+<?php endif; ?>
+        </tbody>
+    </table>
+</section>
         </main>
 
         <aside class="sidebar">

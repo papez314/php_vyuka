@@ -1,0 +1,94 @@
+<?php
+declare(strict_types=1);
+$dbPath = __DIR__ . '/spolek.db';
+$calendarEvents = [];
+if (file_exists($dbPath)) {
+    $pdo = new PDO('sqlite:' . $dbPath);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    // Fetch news as calendar items (date and title)
+    $newsStmt = $pdo->query("SELECT published_date AS event_date, title FROM news ORDER BY id DESC");
+    $news = $newsStmt->fetchAll(PDO::FETCH_ASSOC);
+    // Fetch regular events
+    $eventsStmt = $pdo->query("SELECT event_date, title FROM events ORDER BY id ASC");
+    $events = $eventsStmt->fetchAll(PDO::FETCH_ASSOC);
+    $calendarEvents = array_merge($news, $events);
+}
+?>
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalendář akcí - MS Branky Poličná</title>
+    <link rel="stylesheet" href="projekt2.css">
+</head>
+<body>
+    <header class="main-header">
+        <h1><a href="index.php">Myslivecký spolek Branky - Poličná</a></h1>
+    </header>
+    <nav class="main-nav">
+        <ul>
+            <li><a href="index.php">Aktuality</a></li>
+            <li><a href="O_nas.html">O nás</a></li>
+            <li><a href="plan_akci.php">Plán akcí</a></li>
+            <li><a href="fotogalerie.html">Fotogalerie</a></li>
+            <li><a href="seznam_clenu.html">Seznam členů</a></li>
+            <li><a href="kontaktni_udaje.html">Kontaktní údaje</a></li>
+            <li><a href="admin.php" class="u-admin-link">⚙️ Administrace</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <main class="content">
+            <article class="post">
+                <span class="category-tag">Kalendář akcí</span>
+                <section class="info-header">
+                    <table class="hunting-table">
+                        <thead>
+                            <tr>
+                                <th>Datum</th>
+                                <th>Hodina</th>
+                                <th>Název akce</th>
+                                <th>Místo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+<?php if (!empty($calendarEvents)): ?>
+    <?php foreach ($calendarEvents as $event): ?>
+        <tr>
+            <td><?= htmlspecialchars($event['event_date']) ?></td>
+            <td></td>
+            <td class="event-name"><?= htmlspecialchars($event['title']) ?></td>
+            <td></td>
+        </tr>
+    <?php endforeach; ?>
+<?php else: ?>
+        <tr><td colspan="4">Žádné plánované akce</td></tr>
+<?php endif; ?>
+                        </tbody>
+                    </table>
+                </section>
+            </article>
+        </main>
+        <aside class="sidebar">
+            <section class="sidebar-box white-box">
+                <h3>Hledat</h3>
+                <input type="text" placeholder="Search..." class="search-field">
+            </section>
+            <section class="sidebar-box white-box">
+                <h3>Základní informace</h3>
+                <ul class="side-menu">
+                    <li><a href="doby_lovu.html">Doby lovu</a></li>
+                    <li><a href="popis_honitby.html">Popis honitby</a></li>
+                    <li><a href="mapa.html">Mapa</a></li>
+                    <li><a href="historie.html">Historie</a></li>
+                    <li><a href="popis_hranic.html">Popis hranic</a></li>
+                    <li><a href="cinnost_spolku.html">Činnost spolku</a></li>
+                </ul>
+            </section>
+        </aside>
+    </div>
+    <footer class="main-footer">
+        <p>© 2026 Myslivecký spolek Branky - Poličná | Lesu a lovu zdar!</p>
+    </footer>
+</body>
+</html>
