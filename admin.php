@@ -622,7 +622,7 @@ if ($action === 'edit_event') {
 <body>
 
     <header class="admin-header">
-        <h1><a href="index.php">⚙️ Administrace MS Poličná</a></h1>
+        <h1><a href="index.php">⚙️ Administrace Myslivecký spolek Branky - Poličná</a></h1>
         <div class="admin-user-info">
             Přihlášen: <span><?= htmlspecialchars($_SESSION['admin_user']) ?></span>
             <a href="admin.php?action=logout" class="btn-logout">Odhlásit se</a>
