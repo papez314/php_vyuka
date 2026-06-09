@@ -34,60 +34,7 @@ if (file_exists($dbPath)) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Myslivecký spolek Poličná</title>
     <link rel="stylesheet" href="projekt2.css">
-    <style>
-        /* CSS to ensure custom search form fits nicely */
-        .search-form {
-            display: flex;
-            width: 100%;
-        }
-        .search-field {
-            width: 100%;
-            padding: 8px 12px;
-            border: 1px solid #cbd5e0;
-            border-radius: 4px;
-            box-sizing: border-box;
-            background-color: #fcfdfa;
-        }
-        .search-field:focus {
-            outline: none;
-            border-color: #2e3d23;
-            background-color: #fff;
-        }
-        /* Style for read-more links or tags */
-        .post .category-tag.secondary {
-            background: #a3c18c;
-            color: #2e3d23;
-        }
-        .side-menu {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        .side-menu li {
-            padding: 8px 0;
-            border-bottom: 1px solid #eee;
-        }
-        .side-menu li a {
-            color: #2e3d23;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 0.95rem;
-            transition: color 0.2s;
-        }
-        .side-menu li a:hover {
-            color: #a3c18c;
-        }
-        .search-reset {
-            margin-top: 10px;
-            font-size: 0.85rem;
-            display: inline-block;
-            color: #888;
-            text-decoration: none;
-        }
-        .search-reset:hover {
-            text-decoration: underline;
-        }
-    </style>
+
 </head>
 <body>
 
@@ -103,7 +50,7 @@ if (file_exists($dbPath)) {
             <li><a href="fotogalerie.html">Fotogalerie</a></li>
             <li><a href="seznam_clenu.html">Seznam členů</a></li>
             <li><a href="kontaktni_udaje.html">Kontaktní údaje</a></li>
-            <li><a href="admin.php" style="background: #1e3f28; color: #fff; border-radius: 4px; padding: 5px 10px; font-weight: bold;">⚙️ Administrace</a></li>
+            <li><a href="admin.php" class="u-admin-link">⚙️ Administrace</a></li>
         </ul>
     </nav>
 

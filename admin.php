@@ -68,87 +68,6 @@ if (!$isLoggedIn) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Přihlášení do administrace</title>
         <link rel="stylesheet" href="projekt2.css">
-        <style>
-            .login-container {
-                max-width: 400px;
-                margin: 80px auto;
-                padding: 30px;
-                background: white;
-                border-radius: 8px;
-                box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-                border-top: 8px solid #2e3d23;
-            }
-            .login-container h1 {
-                color: #2e3d23;
-                text-align: center;
-                margin-bottom: 25px;
-                font-size: 1.8rem;
-                font-family: Arial, sans-serif;
-            }
-            .form-group {
-                margin-bottom: 20px;
-            }
-            .form-group label {
-                display: block;
-                font-weight: bold;
-                margin-bottom: 6px;
-                color: #4a5c3e;
-            }
-            .form-group input {
-                width: 100%;
-                padding: 10px;
-                border: 1px solid #ccc;
-                border-radius: 4px;
-                font-size: 1rem;
-                background-color: #faf9f5;
-                box-sizing: border-box;
-            }
-            .form-group input:focus {
-                border-color: #2e3d23;
-                outline: none;
-                background-color: #fff;
-                box-shadow: 0 0 5px rgba(46,61,35,0.2);
-            }
-            .btn-login {
-                background: #2e3d23;
-                color: white;
-                padding: 12px;
-                border: none;
-                border-radius: 4px;
-                cursor: pointer;
-                font-weight: bold;
-                width: 100%;
-                font-size: 1rem;
-                transition: background 0.3s;
-            }
-            .btn-login:hover {
-                background: #1a2416;
-            }
-            .alert {
-                padding: 12px;
-                border-radius: 4px;
-                margin-bottom: 20px;
-                font-size: 0.9rem;
-                text-align: center;
-                font-weight: bold;
-            }
-            .alert-error {
-                background-color: #f8d7da;
-                color: #721c24;
-                border: 1px solid #f5c6cb;
-            }
-            .back-link {
-                display: block;
-                text-align: center;
-                margin-top: 20px;
-                color: #4a5c3e;
-                text-decoration: none;
-                font-weight: bold;
-            }
-            .back-link:hover {
-                text-decoration: underline;
-            }
-        </style>
     </head>
     <body>
         <div class="login-container">
@@ -753,7 +672,7 @@ if ($action === 'edit_event') {
                             <input type="text" id="new_news_title" name="title" placeholder="např. Výroční členská schůze 2026" required>
                         </div>
                         
-                        <div class="form-grid" style="gap:10px;">
+                        <div class="form-grid u-gap-10">
                             <div class="form-control">
                                 <label for="new_news_category">Kategorie (tag)</label>
                                 <input type="text" id="new_news_category" name="category_tag" value="Aktuality" required>
@@ -769,7 +688,7 @@ if ($action === 'edit_event') {
                             <textarea id="new_news_content" name="content" rows="4" placeholder="Obsah sdělení pro členy a veřejnost..." required></textarea>
                         </div>
                         
-                        <button type="submit" name="add_news" class="btn-primary" style="width:100%;">Publikovat aktualitu</button>
+                        <button type="submit" name="add_news" class="btn-primary u-w-100">Publikovat aktualitu</button>
                     </form>
                 </div>
 
@@ -789,7 +708,7 @@ if ($action === 'edit_event') {
                             <input type="text" id="new_event_title" name="event_title" placeholder="např. Společný hon nebo Ples" required>
                         </div>
                         
-                        <button type="submit" name="add_event" class="btn-primary" style="width:100%; margin-top: 15px;">Přidat do kalendáře</button>
+                        <button type="submit" name="add_event" class="btn-primary u-w-100 u-mt-15">Přidat do kalendáře</button>
                     </form>
                 </div>
             </div>
@@ -801,10 +720,10 @@ if ($action === 'edit_event') {
                     <table class="crud-table">
                         <thead>
                             <tr>
-                                <th style="width: 80px;">Datum</th>
-                                <th style="width: 100px;">Kategorie</th>
+                                <th class="u-w-80">Datum</th>
+                                <th class="u-w-100">Kategorie</th>
                                 <th>Nadpis</th>
-                                <th style="width: 160px; text-align: right;">Akce</th>
+                                <th class="u-w-160 u-text-right">Akce</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -813,10 +732,10 @@ if ($action === 'edit_event') {
                                     <td><?= htmlspecialchars($news['published_date']) ?></td>
                                     <td><span class="category-badge <?= $news['category_tag'] !== 'Aktuality' ? 'secondary' : '' ?>"><?= htmlspecialchars($news['category_tag']) ?></span></td>
                                     <td><strong><?= htmlspecialchars($news['title']) ?></strong></td>
-                                    <td style="text-align: right;">
-                                        <div class="flex-buttons" style="justify-content: flex-end;">
+                                    <td class="u-text-right">
+                                        <div class="flex-buttons" class="u-justify-end">
                                             <a href="admin.php?action=edit_news&id=<?= $news['id'] ?>" class="btn-edit">Upravit</a>
-                                            <form action="admin.php" method="POST" onsubmit="return confirm('Opravdu chcete smazat tuto aktualitu?');" style="display:inline;">
+                                            <form action="admin.php" method="POST" onsubmit="return confirm('Opravdu chcete smazat tuto aktualitu?');" class="u-inline">
                                                 <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
                                                 <input type="hidden" name="id" value="<?= $news['id'] ?>">
                                                 <button type="submit" name="delete_news" class="btn-danger">Smazat</button>
@@ -839,9 +758,9 @@ if ($action === 'edit_event') {
                     <table class="crud-table">
                         <thead>
                             <tr>
-                                <th style="width: 120px;">Datum akce</th>
+                                <th class="u-w-120">Datum akce</th>
                                 <th>Název akce</th>
-                                <th style="width: 160px; text-align: right;">Akce</th>
+                                <th class="u-w-160 u-text-right">Akce</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -849,10 +768,10 @@ if ($action === 'edit_event') {
                                 <tr>
                                     <td><strong><?= htmlspecialchars($event['event_date']) ?></strong></td>
                                     <td><?= htmlspecialchars($event['title']) ?></td>
-                                    <td style="text-align: right;">
-                                        <div class="flex-buttons" style="justify-content: flex-end;">
+                                    <td class="u-text-right">
+                                        <div class="flex-buttons" class="u-justify-end">
                                             <a href="admin.php?action=edit_event&id=<?= $event['id'] ?>" class="btn-edit">Upravit</a>
-                                            <form action="admin.php" method="POST" onsubmit="return confirm('Opravdu chcete smazat tuto akci?');" style="display:inline;">
+                                            <form action="admin.php" method="POST" onsubmit="return confirm('Opravdu chcete smazat tuto akci?');" class="u-inline">
                                                 <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
                                                 <input type="hidden" name="id" value="<?= $event['id'] ?>">
                                                 <button type="submit" name="delete_event" class="btn-danger">Smazat</button>
