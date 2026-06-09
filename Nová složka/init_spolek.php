@@ -28,6 +28,13 @@ try {
         title TEXT NOT NULL
     )");
 
+    // Tabulka pro administrátory
+    $pdo->exec("CREATE TABLE IF NOT EXISTS users (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        username TEXT NOT NULL UNIQUE,
+        password TEXT NOT NULL
+    )");
+
     echo "Databáze a tabulky byly úspěšně vytvořeny.<br>";
 
     // Vložení původních aktualit z vašich HTML stránek
@@ -36,7 +43,7 @@ try {
         'Pozvánka na výroční členskou schůzi',
         'Aktuality',
         '6. ledna 2026',
-        'Zveme všechny členy na výroční členskou schůzi...'
+        'Zveme všechny členy na výroční členskou schůzi, která se koná příští pátek v obecním domě. Na programu je zhodnocení uplynulé sezóny a plán přikrmování na zimu.'
     ]);
     $stmtNews->execute([
         'Úspěšné sčítání zvěře',
@@ -51,7 +58,14 @@ try {
     $stmtEvent->execute(['24. 1.', 'Společný hon']);
     $stmtEvent->execute(['14. 2.', 'Myslivecký ples']);
 
-    echo "Výchozí data byla úspěšně importována.";
+    // Vložení výchozího administrátora
+    $stmtUser = $pdo->prepare("INSERT INTO users (username, password) VALUES (?, ?)");
+    $stmtUser->execute([
+        'myslivec',
+        password_hash('Les123', PASSWORD_DEFAULT)
+    ]);
+
+    echo "Výchozí data a administrátorský účet (myslivec) byly úspěšně importovány.";
 
 } catch (PDOException $e) {
     die("Chyba při vytváření databáze: " . $e->getMessage());
